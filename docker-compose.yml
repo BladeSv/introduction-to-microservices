@@ -1,0 +1,30 @@
+version: '3.8'
+
+services:
+  resource-service-db:
+    image: postgres:14.9
+    container_name: resource-service-postgres
+    restart: always
+    environment:
+      POSTGRES_PASSWORD: pass
+      POSTGRES_USER: root
+      POSTGRES_DB: mp3resource
+    ports:
+      - "5432:5432"
+
+  song-service-db:
+    image: postgres:14.9
+    container_name: song-service-postgres
+    restart: always
+    environment:
+      POSTGRES_PASSWORD: pass
+      POSTGRES_USER: root
+      POSTGRES_DB: songs
+    ports:
+      - "6432:5432"
+
+  adminer:
+    image: adminer
+    restart: always
+    ports:
+      - "8180:8080"
