@@ -1,30 +1,70 @@
 version: '3.8'
 
 services:
+  resource-service:
+    container_name: resource-service-container
+    build:
+      context: ./resource-service
+    depends_on:
+      - resource-service-db
+      - song-service-db
+    ports:
+      - "8080:8080"
+    environment:
+      - RESOURCE_SERVICE_PORT
+      - POSTGRES_USER
+      - POSTGRES_PASSWORD
+      - RESOURCE_POSTGRES_DB
+    networks:
+      - microservice
+
+  song-service:
+    container_name: song-service-container
+    build:
+      context: ./song-service
+    depends_on:
+      - resource-service-db
+      - song-service-db
+    ports:
+      - "8081:8081"
+    environment:
+      - SONG_SERVICE_PORT
+      - POSTGRES_USER
+      - POSTGRES_PASSWORD
+      - SONG_POSTGRES_DB
+    networks:
+      - microservice
+
   resource-service-db:
-    image: postgres:14.9
+    image: postgres:${POSTGRES_VERSION}
     container_name: resource-service-postgres
     restart: always
     environment:
-      POSTGRES_PASSWORD: pass
-      POSTGRES_USER: root
-      POSTGRES_DB: mp3resource
+      - POSTGRES_PASSWORD
+      - POSTGRES_USER
+      - POSTGRES_DB=${RESOURCE_POSTGRES_DB}
     ports:
       - "5432:5432"
+    volumes:
+      - ./config/resource-service:/docker-entrypoint-initdb.d
+    networks:
+      - microservice
 
   song-service-db:
-    image: postgres:14.9
+    image: postgres:${POSTGRES_VERSION}
     container_name: song-service-postgres
     restart: always
     environment:
-      POSTGRES_PASSWORD: pass
-      POSTGRES_USER: root
-      POSTGRES_DB: songs
+      - POSTGRES_PASSWORD
+      - POSTGRES_USER
+      - POSTGRES_DB=${SONG_POSTGRES_DB}
     ports:
       - "6432:5432"
+    volumes:
+      - ./config/song-service:/docker-entrypoint-initdb.d
+    networks:
+      - microservice
 
-  adminer:
-    image: adminer
-    restart: always
-    ports:
-      - "8180:8080"
+networks:
+  microservice:
+    driver: bridge
