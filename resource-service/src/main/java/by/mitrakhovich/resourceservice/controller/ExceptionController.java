@@ -2,6 +2,7 @@ package by.mitrakhovich.resourceservice.controller;
 
 import by.mitrakhovich.resourceservice.exception.NotFoundEntityException;
 import jakarta.validation.ConstraintViolationException;
+import lombok.extern.slf4j.Slf4j;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.ControllerAdvice;
@@ -10,6 +11,7 @@ import org.springframework.web.bind.annotation.ExceptionHandler;
 import java.io.IOException;
 
 @ControllerAdvice
+@Slf4j
 public class ExceptionController {
 
 
@@ -26,6 +28,7 @@ public class ExceptionController {
 
     @ExceptionHandler
     public ResponseEntity internalServerExceptionHandler(IOException exception) {
+        log.warn(exception.getStackTrace().toString());
         return ResponseEntity.status(HttpStatus.INTERNAL_SERVER_ERROR).body("An internal server error has occurred");
     }
 }
