@@ -1,64 +1,11 @@
-# Task 3
+# Introduction to microservices course
 
-## Table of Content
+## Install project
 
-- [What to do]
-- [Sub-task: Service registry](
+Run two command lines in root directory terminal:
 
-## What to do
-
-In this task you need to choose one of Service registry tool and inject it into your infrastructure. Please, find the
-sample implementation here: [Eureka Example](https://www.javainuse.com/spring/cloud-gateway-eureka)
-
-![task3.png](assests%2Ftask3.png)
-
-## Sub-task: Service registry
-
-1. Use Eureka Service
-   Registry ([Service Registration and Discovery](https://spring.io/guides/gs/service-registration-and-discovery/)).
-2. All microservices should be Eureka Clients, and they must be registered with the Eureka Server (made up of the Load
-   Balancer and the Service Registry).
-
-# Task 2
-
-## Table of Content
-
-- What to do
-- Sub-task 1: Docker images
-- Sub-task 2: Docker Compose file
-
-## What to do
-
-In this module you will need to adjust your services with containerization approach.
-
-## Sub-task 1: Docker images
-
-1. Package your applications as Docker images.
-2. For each of your services:
-
-- Create a _Docker_ file that would contain instruction on how to package your project.
-- Build a docker image and run it, mapping an external port to verify that application can be started and respond to
-  requests.
-
-## Sub-task 2: Docker Compose file
-
-1. When all applications are successfully packaged, create a _docker-compose.yml_ file that would list all applications
-   and 3rd party dependencies to successfully start the project. Add init scripts for the database to run when container
-   starts up. Once you have a compose file, you can create and start your application containers with a single
-   command: `docker-compose up`.
-
-Please note the following:
-
-- Use an _.env_ file to replace all environment variables depending on the set-up.
-- For 3rd party dependencies try to use the _–alpine_ images whenever it's possible.
-- For project applications use the build property as these images are not going to be pulled from a public hub.
-- Use logical service names to cross-reference services.
-
-Possible container options for existing resources:
-
-- [postgres DB](https://hub.docker.com/_/postgres)
-- [mysql db](https://hub.docker.com/_/mysql)
-- [Local stack (aws emulator)](https://hub.docker.com/r/localstack/localstack)
+- ```docker compose build```
+- ```docker compose up```
 
 # Task 1
 
@@ -107,3 +54,65 @@ As a database, it is best to use Docker database/storage containers (
 e.g. [postgres image](https://hub.docker.com/_/postgres)) in the implementation.
 
 [![](./assests/img.png)](https://git.epam.com/epm-cdp/global-java-foundation-program/java-courses/-/raw/main/introduction-to-microservices/tasks/microservice_architecture_overview/images/microservice_architecture_overview.png)
+
+# Task 2
+
+## Table of Content
+
+- What to do
+- Sub-task 1: Docker images
+- Sub-task 2: Docker Compose file
+
+## What to do
+
+In this module you will need to adjust your services with containerization approach.
+
+## Sub-task 1: Docker images
+
+1. Package your applications as Docker images.
+2. For each of your services:
+
+- Create a _Docker_ file that would contain instruction on how to package your project.
+- Build a docker image and run it, mapping an external port to verify that application can be started and respond to
+  requests.
+
+## Sub-task 2: Docker Compose file
+
+1. When all applications are successfully packaged, create a _docker-compose.yml_ file that would list all applications
+   and 3rd party dependencies to successfully start the project. Add init scripts for the database to run when container
+   starts up. Once you have a compose file, you can create and start your application containers with a single
+   command: `docker-compose up`.
+
+Please note the following:
+
+- Use an _.env_ file to replace all environment variables depending on the set-up.
+- For 3rd party dependencies try to use the _–alpine_ images whenever it's possible.
+- For project applications use the build property as these images are not going to be pulled from a public hub.
+- Use logical service names to cross-reference services.
+
+Possible container options for existing resources:
+
+- [postgres DB](https://hub.docker.com/_/postgres)
+- [mysql db](https://hub.docker.com/_/mysql)
+- [Local stack (aws emulator)](https://hub.docker.com/r/localstack/localstack)
+
+# Task 3
+
+## Table of Content
+
+- [What to do]
+- [Sub-task: Service registry](
+
+## What to do
+
+In this task you need to choose one of Service registry tool and inject it into your infrastructure. Please, find the
+sample implementation here: [Eureka Example](https://www.javainuse.com/spring/cloud-gateway-eureka)
+
+![task3.png](assests%2Ftask3.png)
+
+## Sub-task: Service registry
+
+1. Use Eureka Service
+   Registry ([Service Registration and Discovery](https://spring.io/guides/gs/service-registration-and-discovery/)).
+2. All microservices should be Eureka Clients, and they must be registered with the Eureka Server (made up of the Load
+   Balancer and the Service Registry).
