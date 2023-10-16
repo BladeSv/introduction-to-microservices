@@ -13,7 +13,7 @@ import lombok.*;
 @Entity
 public class Mp3Resource {
     @Id
-    @GeneratedValue(strategy = GenerationType.AUTO)
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Integer id;
 
     @Pattern(regexp = "^.*\\.mp3$", message = "Validation failed or request body is invalid MP3")

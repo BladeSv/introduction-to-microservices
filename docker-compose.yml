@@ -1,13 +1,26 @@
-version: '3.8'
+version: '3.9'
 
 services:
+  registration-service:
+    container_name: registration-service-container
+    build:
+      context: ./registration-service
+    image: registration-service-image:v1
+    ports:
+      - "8070:8070"
+    networks:
+      - microservice
+
   resource-service:
     container_name: resource-service-container
     build:
       context: ./resource-service
+    image: resource-service-image:v1
     depends_on:
       - resource-service-db
       - song-service-db
+      - registration-service
+
     ports:
       - "8080:8080"
     environment:
@@ -22,11 +35,31 @@ services:
     container_name: song-service-container
     build:
       context: ./song-service
+    image: song-service-image:v1
     depends_on:
       - resource-service-db
       - song-service-db
+      - registration-service
+
     ports:
       - "8081:8081"
+    environment:
+      - SONG_SERVICE_PORT
+      - POSTGRES_USER
+      - POSTGRES_PASSWORD
+      - SONG_POSTGRES_DB
+    networks:
+      - microservice
+
+  song-service-2:
+    container_name: song-service-container-2
+    image: song-service-image:v1
+    depends_on:
+      - resource-service-db
+      - song-service-db
+      - registration-service
+    ports:
+      - "8082:8081"
     environment:
       - SONG_SERVICE_PORT
       - POSTGRES_USER
@@ -47,6 +80,8 @@ services:
       - "5432:5432"
     volumes:
       - ./config/resource-service:/docker-entrypoint-initdb.d
+    depends_on:
+      - registration-service
     networks:
       - microservice
 
@@ -62,6 +97,8 @@ services:
       - "6432:5432"
     volumes:
       - ./config/song-service:/docker-entrypoint-initdb.d
+    depends_on:
+      - registration-service
     networks:
       - microservice
 
