@@ -32,6 +32,8 @@ public class ResourceService {
     private ResourceRepository repository;
     @Autowired
     private ResourceParser resourceParser;
+    @Autowired
+    private RestTemplate restTemplate;
 
     @Value("${song.service.url}")
     private String songServiceUrl;
@@ -68,7 +70,6 @@ public class ResourceService {
     }
 
     private boolean sendSongMetadata(Song song) {
-        RestTemplate restTemplate = new RestTemplate();
         ObjectMapper objectMapper = new ObjectMapper();
         String songJson;
         try {

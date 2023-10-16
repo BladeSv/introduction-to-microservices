@@ -1,5 +1,5 @@
 CREATE TABLE public.song_dao (
-	id int4 NOT NULL,
+	id SERIAL NOT NULL,
 	album varchar(255) NULL,
 	artist varchar(255) NULL,
 	length varchar(255) NULL,
